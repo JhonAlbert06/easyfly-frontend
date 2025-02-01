@@ -1,21 +1,32 @@
-<body class="p-3 m-0 border-0 bd-example m-0 border-0">
-  <br />
-  <div class="card">
-    <div class="card-header">Flights</div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col">
-          <label for="" class="form-label">Origin</label>
-          <select class="form-select" aria-label="Default select example">
+<br />
+<div class="card">
+  <div class="card-header">Flights</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <label for="origin" class="form-label">Origin</label>
+        <div class="input-group">
+          <span class="input-group-text"
+            ><i class="bi bi-geo-alt-fill"></i
+          ></span>
+          <select id="origin" class="form-select" aria-label="Select Origin">
             <option selected>Select Origin</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
         </div>
-        <div class="col">
-          <label for="" class="form-label">Destination</label>
-          <select class="form-select" aria-label="Default select example">
+      </div>
+
+      <div class="col-12 col-md-6 mb-3">
+        <label for="destination" class="form-label">Destination</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-flag-fill"></i></span>
+          <select
+            id="destination"
+            class="form-select"
+            aria-label="Select Destination"
+          >
             <option selected>Select Destination</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -23,28 +34,134 @@
           </select>
         </div>
       </div>
+    </div>
 
-      <br />
+    <br />
 
-      <div class="row">
-        <div class="col">
-          <label for="date-input" class="form-label">Departure Date</label>
+    <div class="row">
+      <div class="col">
+        <label for="departure-date" class="form-label">Departure Date</label>
+        <div class="input-group">
+          <span class="input-group-text"
+            ><i class="bi bi-calendar-event-fill"></i
+          ></span>
           <input
             type="datetime-local"
+            id="departure-date"
             class="form-control"
-            placeholder="Departure Date"
           />
         </div>
+      </div>
 
-        <div class="col">
-          <label for="date-input" class="form-label">Return Date</label>
-          <input type="date" class="form-control" placeholder="Return Date" />
+      <div class="col">
+        <label for="return-date" class="form-label">Return Date</label>
+        <div class="input-group">
+          <span class="input-group-text"
+            ><i class="bi bi-calendar-check-fill"></i
+          ></span>
+          <input type="datetime-local" id="return-date" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <div class="col">
+        <label for="passengers" class="form-label">Nº Passengers</label>
+        <div class="input-group">
+          <button
+            class="btn btn-outline-secondary w-100 dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            (click)="toggleDropdown()"
+          >
+            <i class="bi bi-people-fill"> </i>
+
+            {{ getPassengerSummary() }}
+          </button>
+
+          <ul
+            class="dropdown-menu p-3"
+            [class.show]="isDropdownOpen"
+            style="width: 100%; max-width: 350px"
+          >
+            <li class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <strong>Adulto</strong><br />
+                <small>De 16 años en adelante</small>
+              </div>
+              <div class="d-flex align-items-center">
+                <button
+                  class="btn btn-secondary"
+                  (click)="decrease('adult')"
+                  [disabled]="passengers.adult === 1"
+                >
+                  <i class="bi bi-dash"></i>
+                </button>
+                <span class="mx-2 fs-5">{{ passengers.adult }}</span>
+                <button class="btn btn-primary" (click)="increase('adult')">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </li>
+
+            <li class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <strong>Niños</strong><br />
+                <small>De 2 a 15 años</small>
+              </div>
+              <div class="d-flex align-items-center">
+                <button
+                  class="btn btn-secondary"
+                  (click)="decrease('child')"
+                  [disabled]="passengers.child === 0"
+                >
+                  <i class="bi bi-dash"></i>
+                </button>
+                <span class="mx-2 fs-5">{{ passengers.child }}</span>
+                <button class="btn btn-primary" (click)="increase('child')">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </li>
+
+            <li class="d-flex justify-content-between align-items-center">
+              <div>
+                <strong>Bebés en Piernas</strong><br />
+                <small>De 0 a 2 años</small>
+              </div>
+              <div class="d-flex align-items-center">
+                <button
+                  class="btn btn-secondary"
+                  (click)="decrease('infant')"
+                  [disabled]="passengers.infant === 0"
+                >
+                  <i class="bi bi-dash"></i>
+                </button>
+                <span class="mx-2 fs-5">{{ passengers.infant }}</span>
+                <button class="btn btn-primary" (click)="increase('infant')">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div class="text-end">
-        <a href="#" class="btn btn-primary">Search</a>
+      <div class="col">
+        <label for="promo-code" class="form-label">Promo Code</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-tag-fill"></i></span>
+          <input type="text" id="promo-code" class="form-control" />
+        </div>
       </div>
     </div>
+
+    <br />
+    <div class="text-end">
+      <a href="#" class="btn btn-primary">Search</a>
+    </div>
   </div>
-</body>
+</div>
