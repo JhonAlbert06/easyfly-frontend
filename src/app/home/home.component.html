@@ -6,32 +6,112 @@
       <div class="col-12 col-md-6 mb-3">
         <label for="origin" class="form-label">Origin</label>
         <div class="input-group">
-          <span class="input-group-text"
-            ><i class="bi bi-geo-alt-fill"></i
-          ></span>
-          <select id="origin" class="form-select" aria-label="Select Origin">
-            <option selected>Select Origin</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <div class="dropdown w-100">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle w-100"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-geo-alt-fill"></i>
+              Select Origin
+            </button>
+
+            <div class="dropdown-menu w-100 p-2">
+              <!-- Input de búsqueda -->
+              <input
+                type="text"
+                class="form-control mb-2"
+                placeholder="Search airport..."
+                [(ngModel)]="searchTerm"
+              />
+
+              <!-- Lista filtrada -->
+              <ul class="list-unstyled max-vh-50 overflow-auto">
+                <li *ngFor="let item of filteredAirports()" class="mb-1">
+                  <a
+                    class="dropdown-item d-flex justify-content-between"
+                    href="#"
+                  >
+                    <span>{{ item.code }}</span>
+                    <span
+                      >{{ item.city }} - {{ item.country }} -
+                      <strong>{{ item.name }}</strong></span
+                    >
+                  </a>
+                </li>
+              </ul>
+
+              <!-- Loader en caso de que esté cargando -->
+              <div *ngIf="isLoadingAirports" class="text-center py-2">
+                <div class="spinner-border text-primary" role="status"></div>
+              </div>
+
+              <!-- Mensaje si no hay resultados -->
+              <div
+                *ngIf="!isLoadingAirports && filteredAirports().length === 0"
+                class="text-center text-muted"
+              >
+                Results not found.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="col-12 col-md-6 mb-3">
         <label for="destination" class="form-label">Destination</label>
         <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-flag-fill"></i></span>
-          <select
-            id="destination"
-            class="form-select"
-            aria-label="Select Destination"
-          >
-            <option selected>Select Destination</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <div class="dropdown w-100">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle w-100"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-geo-alt-fill"></i>
+              Select Destination
+            </button>
+
+            <div class="dropdown-menu w-100 p-2">
+              <!-- Input de búsqueda -->
+              <input
+                type="text"
+                class="form-control mb-2"
+                placeholder="Search airport..."
+                [(ngModel)]="searchTerm"
+              />
+
+              <!-- Lista filtrada -->
+              <ul class="list-unstyled max-vh-50 overflow-auto">
+                <li *ngFor="let item of filteredAirports()" class="mb-1">
+                  <a
+                    class="dropdown-item d-flex justify-content-between"
+                    href="#"
+                  >
+                    <span>{{ item.code }}</span>
+                    <span
+                      >{{ item.city }} - {{ item.country }} -
+                      <strong>{{ item.name }}</strong></span
+                    >
+                  </a>
+                </li>
+              </ul>
+
+              <!-- Loader en caso de que esté cargando -->
+              <div *ngIf="isLoadingAirports" class="text-center py-2">
+                <div class="spinner-border text-primary" role="status"></div>
+              </div>
+
+              <!-- Mensaje si no hay resultados -->
+              <div
+                *ngIf="!isLoadingAirports && filteredAirports().length === 0"
+                class="text-center text-muted"
+              >
+                Results not found.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -45,11 +125,7 @@
           <span class="input-group-text"
             ><i class="bi bi-calendar-event-fill"></i
           ></span>
-          <input
-            type="datetime-local"
-            id="departure-date"
-            class="form-control"
-          />
+          <input type="date" id="departure-date" class="form-control" />
         </div>
       </div>
 
@@ -59,7 +135,7 @@
           <span class="input-group-text"
             ><i class="bi bi-calendar-check-fill"></i
           ></span>
-          <input type="datetime-local" id="return-date" class="form-control" />
+          <input type="date" id="return-date" class="form-control" />
         </div>
       </div>
     </div>
