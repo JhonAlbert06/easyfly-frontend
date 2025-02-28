@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { AirportDataModule } from '../domain/usescases/airport/data-airport.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { FlightDataModule } from '../domain/usescases/flight/data-flight.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     AirportDataModule,
+    FlightDataModule,
   ],
   providers: [provideClientHydration(withEventReplay())],
   bootstrap: [AppComponent],

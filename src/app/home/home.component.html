@@ -14,7 +14,7 @@
               aria-expanded="false"
             >
               <i class="bi bi-geo-alt-fill"></i>
-              Select Origin
+              {{ origin?.code }} - {{ origin?.name }}
             </button>
 
             <div class="dropdown-menu w-100 p-2">
@@ -32,12 +32,13 @@
                   <a
                     class="dropdown-item d-flex justify-content-between"
                     href="#"
+                    (click)="selectOrigin(item, $event)"
                   >
                     <span>{{ item.code }}</span>
-                    <span
-                      >{{ item.city }} - {{ item.country }} -
-                      <strong>{{ item.name }}</strong></span
-                    >
+                    <span>
+                      {{ item.city }} - {{ item.country }} -
+                      <strong>{{ item.name }}</strong>
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -70,7 +71,7 @@
               aria-expanded="false"
             >
               <i class="bi bi-geo-alt-fill"></i>
-              Select Destination
+              {{ destination?.code }} - {{ destination?.name }}
             </button>
 
             <div class="dropdown-menu w-100 p-2">
@@ -88,12 +89,13 @@
                   <a
                     class="dropdown-item d-flex justify-content-between"
                     href="#"
+                    (click)="selectDestination(item, $event)"
                   >
                     <span>{{ item.code }}</span>
-                    <span
-                      >{{ item.city }} - {{ item.country }} -
-                      <strong>{{ item.name }}</strong></span
-                    >
+                    <span>
+                      {{ item.city }} - {{ item.country }} -
+                      <strong>{{ item.name }}</strong>
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -125,7 +127,12 @@
           <span class="input-group-text"
             ><i class="bi bi-calendar-event-fill"></i
           ></span>
-          <input type="date" id="departure-date" class="form-control" />
+          <input
+            type="date"
+            id="departure-date"
+            class="form-control"
+            [(ngModel)]="departureDate"
+          />
         </div>
       </div>
 
@@ -135,7 +142,12 @@
           <span class="input-group-text"
             ><i class="bi bi-calendar-check-fill"></i
           ></span>
-          <input type="date" id="return-date" class="form-control" />
+          <input
+            type="date"
+            id="return-date"
+            class="form-control"
+            [(ngModel)]="returnDate"
+          />
         </div>
       </div>
     </div>
@@ -230,7 +242,12 @@
         <label for="promo-code" class="form-label">Promo Code</label>
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-tag-fill"></i></span>
-          <input type="text" id="promo-code" class="form-control" />
+          <input
+            type="text"
+            id="promo-code"
+            class="form-control"
+            [(ngModel)]="promoCode"
+          />
         </div>
       </div>
     </div>
@@ -241,3 +258,16 @@
     </div>
   </div>
 </div>
+
+<br />
+{{ origin | json }}
+<br />
+{{ destination | json }}
+<br />
+{{ departureDate | date : "MM/dd/yyyy" }}
+<br />
+{{ returnDate | date : "MM/dd/yyyy" }}
+<br />
+{{ passengers | json }}
+<br />
+{{ promoCode }}
